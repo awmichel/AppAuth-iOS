@@ -94,6 +94,11 @@ static NSString *const kQueryStringParamAdditionalDisallowedCharacters = @"=&+";
 }
 
 - (void)addParameter:(NSString *)parameter value:(NSString *)value {
+  // Filters out trailing `&` characters in URLs.
+  if ([parameter length] == 0 || value == nil) {
+    return;
+  }
+
   NSMutableArray<NSString *> *parameterValues = _parameters[parameter];
   if (!parameterValues) {
     parameterValues = [NSMutableArray array];
